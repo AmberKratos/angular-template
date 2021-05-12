@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   testAjax = (): void => {
-    this.ajax.ajaxPost('127.0.0.1:8080', {}, (response: object) => {
+    this.ajax.ajaxPost('http://127.0.0.1:8080', {}, (response: object) => {
       console.log(response);
     });
   };
