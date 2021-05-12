@@ -14,9 +14,14 @@ export class AjaxService {
     this.ajax = ajax;
   }
 
-  //封装get请求
+  /**
+   * 封装了get请求
+   * @param url    请求的地址
+   * @param responseCallback   返回值回调函数
+   * @param isWithCredentials   是否携带认证信息
+   */
   public ajaxGet = (url: string,
-                    callback: Function,
+                    responseCallback: Function,
                     isWithCredentials?: boolean): void => {
     this.ajax.get<any>(url, {
       headers: new HttpHeaders({
@@ -27,18 +32,50 @@ export class AjaxService {
       retry(3),         //如果请求失败，重新请求次数
       catchError(AjaxService.handleError),    //捕获错误信息
     ).subscribe((response) => {
-      callback(response);     //将服务器响应数据封装到回调函数中
-    }, (e) => {     //错误处理
-      console.log(e);
-    }, () => {      //响应完成之后执行的函数
-      console.log('complete');
+      responseCallback(response);     //将服务器响应数据封装到回调函数中
     });
   };
 
-  //封装post请求
+  /**
+   * 封装了get请求并处理错误和请求完成后的功能
+   * @param url   请求地址
+   * @param responseCallback   返回值回调函数
+   * @param errorCallback   错误信息回调函数
+   * @param completeCallback   请求完成回调函数
+   * @param isWithCredentials   是否携带认证信息
+   */
+  public ajaxGetAll = (url: string,
+                       responseCallback: Function,
+                       errorCallback: Function,
+                       completeCallback: Function,
+                       isWithCredentials?: boolean): void => {
+    this.ajax.get<any>(url, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'  //请求数据格式
+      }),
+      withCredentials: !(isWithCredentials == undefined || !isWithCredentials)      //是否携带认证信息
+    }).pipe(
+      retry(3),         //如果请求失败，重新请求次数
+      catchError(AjaxService.handleError),    //捕获错误信息
+    ).subscribe((response) => {
+      responseCallback(response);     //将服务器响应数据封装到回调函数中
+    }, (e) => {     //错误处理
+      errorCallback(e);
+    }, () => {      //响应完成之后执行的函数
+      completeCallback();
+    });
+  };
+
+  /**
+   * 封装了post请求
+   * @param url   请求地址
+   * @param request   请求参数，json格式
+   * @param responseCallback   返回值回调函数
+   * @param isWithCredentials   是否携带认证信息
+   */
   public ajaxPost = (url: string,
                      request: object,
-                     callback: Function,
+                     responseCallback: Function,
                      isWithCredentials?: boolean): void => {
     this.ajax.post<any>(url, request, {
       headers: new HttpHeaders({
@@ -49,19 +86,52 @@ export class AjaxService {
       retry(3),
       catchError(AjaxService.handleError)
     ).subscribe((response) => {
-      callback(response);
-    }, (error) => {
-      console.log(isWithCredentials);
-      console.log(error);
-    }, () => {
-      console.log('complete');
+      responseCallback(response);
     });
   };
 
-  //封装put请求
+  /**
+   * 封装了post请求并处理错误和请求完成后的功能
+   * @param url   请求地址
+   * @param request   请求参数，json格式
+   * @param responseCallback   返回值回调函数
+   * @param errorCallback   错误信息回调函数
+   * @param completeCallback   请求完成回调函数
+   * @param isWithCredentials   是否携带认证信息
+   */
+  public ajaxPostAll = (url: string,
+                     request: object,
+                     responseCallback: Function,
+                     errorCallback:Function,
+                     completeCallback:Function,
+                     isWithCredentials?: boolean): void => {
+    this.ajax.post<any>(url, request, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      withCredentials: !(isWithCredentials == undefined || !isWithCredentials)
+    }).pipe(
+      retry(3),
+      catchError(AjaxService.handleError)
+    ).subscribe((response) => {
+      responseCallback(response);
+    }, (e) => {
+      errorCallback(e);
+    }, () => {
+      completeCallback();
+    });
+  };
+
+  /**
+   * 封装了put请求
+   * @param url   请求地址
+   * @param request   请求参数，json格式
+   * @param responseCallback   返回值回调函数
+   * @param isWithCredentials   是否携带认证信息
+   */
   public ajaxPut = (url: string,
                     request: object,
-                    callback: Function,
+                    responseCallback: Function,
                     isWithCredentials?: boolean): void => {
     this.ajax.put<any>(url, request, {
       headers: new HttpHeaders({
@@ -72,17 +142,50 @@ export class AjaxService {
       retry(3),
       catchError(AjaxService.handleError)
     ).subscribe((response) => {
-      callback(response);
-    }, (error) => {
-      console.log(error);
-    }, () => {
-      console.log('complete');
+      responseCallback(response);
     });
   };
 
-  //封装delete请求
+  /**
+   * 封装了put请求
+   * @param url   请求地址
+   * @param request   请求参数，json格式
+   * @param responseCallback   返回值回调函数
+   * @param errorCallback   错误信息回调函数
+   * @param completeCallback   完成请求后的回调函数
+   * @param isWithCredentials   是否携带认证信息
+   */
+  public ajaxPutAll = (url: string,
+                    request: object,
+                    responseCallback: Function,
+                    errorCallback:Function,
+                    completeCallback:Function,
+                    isWithCredentials?: boolean): void => {
+    this.ajax.put<any>(url, request, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      withCredentials: !(isWithCredentials == undefined || !isWithCredentials)
+    }).pipe(
+      retry(3),
+      catchError(AjaxService.handleError)
+    ).subscribe((response) => {
+      responseCallback(response);
+    }, (e) => {
+      errorCallback(e);
+    }, () => {
+      completeCallback();
+    });
+  };
+
+  /**
+   * 封装了delete请求
+   * @param url   请求地址
+   * @param responseCallback   返回值回调函数
+   * @param isWithCredentials   是否携带认证信息
+   */
   public ajaxDelete = (url: string,
-                       callback: Function,
+                       responseCallback: Function,
                        isWithCredentials?: boolean): void => {
     this.ajax.delete<any>(url, {
       headers: new HttpHeaders({
@@ -93,15 +196,44 @@ export class AjaxService {
       retry(3),
       catchError(AjaxService.handleError)
     ).subscribe((response) => {
-      callback(response);
-    }, (error) => {
-      console.log(error);
-    }, () => {
-      console.log('complete');
+      responseCallback(response);
     });
   };
 
-  // 错误消息
+  /**
+   * 封装了delete请求
+   * @param url   请求地址
+   * @param responseCallback   返回值回调函数
+   * @param errorCallback   错误信息回调函数
+   * @param completeCallback   完成请求后执行的回调函数
+   * @param isWithCredentials   是否携带认证信息
+   */
+  public ajaxDeleteAll = (url: string,
+                       responseCallback: Function,
+                       errorCallback:Function,
+                       completeCallback:Function,
+                       isWithCredentials?: boolean): void => {
+    this.ajax.delete<any>(url, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      withCredentials: !(isWithCredentials == undefined || !isWithCredentials)
+    }).pipe(
+      retry(3),
+      catchError(AjaxService.handleError)
+    ).subscribe((response) => {
+      responseCallback(response);
+    }, (e) => {
+      errorCallback(e);
+    }, () => {
+      completeCallback();
+    });
+  };
+
+  /**
+   * 统一错误处理
+   * @param error  错误信息
+   */
   private static handleError = (error: HttpErrorResponse): Observable<any> => {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);

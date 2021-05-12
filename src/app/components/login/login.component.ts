@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   private ajax: AjaxService;
   private dataTrans: DataService;
 
-  private num:number=0;
+  private num: number = 0;
 
   constructor(ajax: AjaxService, dataTrans: DataService) {
     this.ajax = ajax;
@@ -28,9 +28,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   testAjax = (): void => {
-    this.ajax.ajaxPost('http://127.0.0.1:8080', {}, (response: object) => {
-      console.log(response);
-    });
+    this.ajax.ajaxPostAll('http://127.0.0.1:8080',
+      {
+        username: '1001',
+        password: 'root'
+      },
+      (response: object) => {
+        console.log(response);
+      }, (error: any) => {
+        console.log(error);
+      }, () => {
+        console.log('complete');
+      }, true);
   };
 
   testSend = (): void => {
