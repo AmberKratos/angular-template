@@ -22,11 +22,13 @@ import {DataService} from './services/dataService/data.service';
  * 其他部分
  */
 import {Subject} from 'rxjs';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [       //组件注册
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent
   ],
   imports: [           //功能模块注册
     BrowserModule,
