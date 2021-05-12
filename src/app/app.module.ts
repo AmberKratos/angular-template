@@ -47,7 +47,7 @@ import {Subject} from 'rxjs';
     Subject,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: UnifiedInterceptor, //自定义拦截器的类名
+      useClass: UnifiedInterceptor,  //自定义拦截器的类名
       multi: true
     }
   ],

@@ -15,12 +15,14 @@ export class AjaxService {
   }
 
   //封装get请求
-  public ajaxGet = (url: string, callback: Function): void => {
+  public ajaxGet = (url: string,
+                    callback: Function,
+                    isWithCredentials?: boolean): void => {
     this.ajax.get<any>(url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'  //请求数据格式
       }),
-      withCredentials: false      //是否携带认证信息
+      withCredentials: !(isWithCredentials == undefined || !isWithCredentials)      //是否携带认证信息
     }).pipe(
       retry(3),         //如果请求失败，重新请求次数
       catchError(AjaxService.handleError),    //捕获错误信息
@@ -34,18 +36,22 @@ export class AjaxService {
   };
 
   //封装post请求
-  public ajaxPost = (url: string, request: object, callback: Function): void => {
+  public ajaxPost = (url: string,
+                     request: object,
+                     callback: Function,
+                     isWithCredentials?: boolean): void => {
     this.ajax.post<any>(url, request, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
-      withCredentials: false
+      withCredentials: !(isWithCredentials == undefined || !isWithCredentials)
     }).pipe(
       retry(3),
       catchError(AjaxService.handleError)
     ).subscribe((response) => {
       callback(response);
     }, (error) => {
+      console.log(isWithCredentials);
       console.log(error);
     }, () => {
       console.log('complete');
@@ -53,12 +59,15 @@ export class AjaxService {
   };
 
   //封装put请求
-  public ajaxPut = (url: string, request: object, callback: Function): void => {
+  public ajaxPut = (url: string,
+                    request: object,
+                    callback: Function,
+                    isWithCredentials?: boolean): void => {
     this.ajax.put<any>(url, request, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
-      withCredentials: false
+      withCredentials: !(isWithCredentials == undefined || !isWithCredentials)
     }).pipe(
       retry(3),
       catchError(AjaxService.handleError)
@@ -72,12 +81,14 @@ export class AjaxService {
   };
 
   //封装delete请求
-  public ajaxDelete = (url: string, callback: Function): void => {
+  public ajaxDelete = (url: string,
+                       callback: Function,
+                       isWithCredentials?: boolean): void => {
     this.ajax.delete<any>(url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
-      withCredentials: false
+      withCredentials: !(isWithCredentials == undefined || !isWithCredentials)
     }).pipe(
       retry(3),
       catchError(AjaxService.handleError)
