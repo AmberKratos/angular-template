@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   }
 
-  testAjax = (): void => {
+  testAjaxPost = (): void => {
     this.ajax.ajaxPostAll('http://127.0.0.1:8080',
       {
         username: '1001',
@@ -38,6 +38,19 @@ export class LoginComponent implements OnInit, AfterViewInit {
       }, (error: any) => {
         console.log(error);
       }, () => {
+        console.log('complete');
+      }, true);
+  };
+
+  testAjaxGet = (): void => {
+    this.ajax.ajaxGetAll('http://127.0.0.1:8080?username=root&password=root',
+      (response: any) => {
+        console.log(response);
+      },
+      (error: any) => {
+        console.error(error);
+      },
+      () => {
         console.log('complete');
       }, true);
   };

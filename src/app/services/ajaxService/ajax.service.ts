@@ -69,15 +69,18 @@ export class AjaxService {
   /**
    * 封装了post请求
    * @param url   请求地址
-   * @param request   请求参数，json格式
+   * @param requestBody   请求参数，json格式
    * @param responseCallback   返回值回调函数
    * @param isWithCredentials   是否携带认证信息
    */
   public ajaxPost = (url: string,
-                     request: object,
+                     requestBody: object,
                      responseCallback: Function,
                      isWithCredentials?: boolean): void => {
-    this.ajax.post<any>(url, request, {
+    const data: any = {
+      request: requestBody
+    };
+    this.ajax.post<any>(url, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
@@ -93,19 +96,22 @@ export class AjaxService {
   /**
    * 封装了post请求并处理错误和请求完成后的功能
    * @param url   请求地址
-   * @param request   请求参数，json格式
+   * @param requestBody   请求参数，json格式
    * @param responseCallback   返回值回调函数
    * @param errorCallback   错误信息回调函数
    * @param completeCallback   请求完成回调函数
    * @param isWithCredentials   是否携带认证信息
    */
   public ajaxPostAll = (url: string,
-                     request: object,
-                     responseCallback: Function,
-                     errorCallback:Function,
-                     completeCallback:Function,
-                     isWithCredentials?: boolean): void => {
-    this.ajax.post<any>(url, request, {
+                        requestBody: object,
+                        responseCallback: Function,
+                        errorCallback: Function,
+                        completeCallback: Function,
+                        isWithCredentials?: boolean): void => {
+    const data: any = {
+      request: requestBody
+    };
+    this.ajax.post<any>(url, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
@@ -125,15 +131,18 @@ export class AjaxService {
   /**
    * 封装了put请求
    * @param url   请求地址
-   * @param request   请求参数，json格式
+   * @param requestBody   请求参数，json格式
    * @param responseCallback   返回值回调函数
    * @param isWithCredentials   是否携带认证信息
    */
   public ajaxPut = (url: string,
-                    request: object,
+                    requestBody: object,
                     responseCallback: Function,
                     isWithCredentials?: boolean): void => {
-    this.ajax.put<any>(url, request, {
+    const data: any = {
+      request: requestBody
+    };
+    this.ajax.put<any>(url, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
@@ -149,19 +158,22 @@ export class AjaxService {
   /**
    * 封装了put请求
    * @param url   请求地址
-   * @param request   请求参数，json格式
+   * @param requestBody   请求参数，json格式
    * @param responseCallback   返回值回调函数
    * @param errorCallback   错误信息回调函数
    * @param completeCallback   完成请求后的回调函数
    * @param isWithCredentials   是否携带认证信息
    */
   public ajaxPutAll = (url: string,
-                    request: object,
-                    responseCallback: Function,
-                    errorCallback:Function,
-                    completeCallback:Function,
-                    isWithCredentials?: boolean): void => {
-    this.ajax.put<any>(url, request, {
+                       requestBody: object,
+                       responseCallback: Function,
+                       errorCallback: Function,
+                       completeCallback: Function,
+                       isWithCredentials?: boolean): void => {
+    const data: any = {
+      request: requestBody
+    };
+    this.ajax.put<any>(url, data, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
@@ -209,10 +221,10 @@ export class AjaxService {
    * @param isWithCredentials   是否携带认证信息
    */
   public ajaxDeleteAll = (url: string,
-                       responseCallback: Function,
-                       errorCallback:Function,
-                       completeCallback:Function,
-                       isWithCredentials?: boolean): void => {
+                          responseCallback: Function,
+                          errorCallback: Function,
+                          completeCallback: Function,
+                          isWithCredentials?: boolean): void => {
     this.ajax.delete<any>(url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
