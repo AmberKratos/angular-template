@@ -28,13 +28,15 @@ import {UnifiedInterceptor} from './interceptors/unifiedInterceptor/unified.inte
  * 其他部分
  */
 import {Subject} from 'rxjs';
+import { MainComponent } from './components/main/main.component';
 
 
 @NgModule({
   declarations: [       //组件注册
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    MainComponent
   ],
   imports: [           //功能模块注册
     BrowserModule,

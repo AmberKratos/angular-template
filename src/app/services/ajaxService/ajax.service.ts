@@ -77,10 +77,9 @@ export class AjaxService {
                      requestBody: object,
                      responseCallback: Function,
                      isWithCredentials?: boolean): void => {
-    const data: any = {
+    this.ajax.post<any>(url, {
       request: requestBody
-    };
-    this.ajax.post<any>(url, data, {
+    }, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
@@ -108,10 +107,9 @@ export class AjaxService {
                         errorCallback: Function,
                         completeCallback: Function,
                         isWithCredentials?: boolean): void => {
-    const data: any = {
+    this.ajax.post<any>(url, {
       request: requestBody
-    };
-    this.ajax.post<any>(url, data, {
+    }, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
@@ -139,10 +137,9 @@ export class AjaxService {
                     requestBody: object,
                     responseCallback: Function,
                     isWithCredentials?: boolean): void => {
-    const data: any = {
+    this.ajax.put<any>(url, {
       request: requestBody
-    };
-    this.ajax.put<any>(url, data, {
+    }, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),
@@ -170,10 +167,9 @@ export class AjaxService {
                        errorCallback: Function,
                        completeCallback: Function,
                        isWithCredentials?: boolean): void => {
-    const data: any = {
+    this.ajax.put<any>(url, {
       request: requestBody
-    };
-    this.ajax.put<any>(url, data, {
+    }, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       }),

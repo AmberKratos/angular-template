@@ -1,22 +1,21 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
-import {AjaxService} from '../../services/ajaxService/ajax.service';
+import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import {DataService} from '../../services/dataService/data.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  private ajax: AjaxService;
-  private dataTrans: DataService;
+  private dataService: DataService;
+  private router: Router;
 
-  private num: number = 0;
-
-  constructor(ajax: AjaxService, dataTrans: DataService) {
-    this.ajax = ajax;
-    this.dataTrans = dataTrans;
+  constructor(dataService: DataService,
+              router: Router) {
+    this.dataService = dataService;
+    this.router = router;
   }
 
   ngOnInit(): void {
@@ -27,36 +26,17 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   }
 
-  testAjaxPost = (): void => {
-    this.ajax.ajaxPostAll('http://127.0.0.1:8080',
-      {
-        username: '1001',
-        password: 'root'
-      },
-      (response: object) => {
-        console.log(response);
-      }, (error: any) => {
-        console.log(error);
-      }, () => {
-        console.log('complete');
-      }, true);
-  };
+  ngOnDestroy(): void {
+    console.log('des');
+  }
 
-  testAjaxGet = (): void => {
-    this.ajax.ajaxGetAll('http://127.0.0.1:8080?username=root&password=root',
-      (response: any) => {
-        console.log(response);
-      },
-      (error: any) => {
-        console.error(error);
-      },
-      () => {
-        console.log('complete');
-      }, true);
-  };
+  loginSubmit = (): void => {
+    this.router.navigate(['/content']).then((result: boolean) => {
+      console.log(3123213)
+      this.dataService.sendData(this.constructor.name, 'MainComponent', {test: 111});
+    });
 
-  testSend = (): void => {
-    this.dataTrans.sendData('HomeComponent', {count: this.num++});
+    this.dataService.sendData(this.constructor.name, 'MainComponent', {test: 2222});
   };
 
 }
