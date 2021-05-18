@@ -27,16 +27,14 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('des');
+
   }
 
   loginSubmit = (): void => {
-    this.router.navigate(['/content']).then((result: boolean) => {
-      console.log(3123213)
-      this.dataService.sendData(this.constructor.name, 'MainComponent', {test: 111});
-    });
-
-    this.dataService.sendData(this.constructor.name, 'MainComponent', {test: 2222});
-  };
+    this.router.navigate(['/content']).then(()=>{
+      this.dataService.setData(this.constructor.name,'MainComponent',{test:123123});
+      this.dataService.setData(this.constructor.name,'MainComponent',{test11:222222});
+    })
+  }
 
 }

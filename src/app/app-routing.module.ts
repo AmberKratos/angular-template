@@ -2,6 +2,9 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from './components/login/login.component';
 import {MainComponent} from './components/main/main.component';
+import {CanActivateGuard} from './guards/canActivate/can-activate.guard';
+import {LoadingResolver} from './resolvers/loadingResolver/loading.resolver';
+import {CanLoadGuard} from './guards/canLoad/can-load.guard';
 
 const routes: Routes = [
   {
@@ -11,6 +14,12 @@ const routes: Routes = [
   {
     path: 'content',
     component: MainComponent,
+    canActivate: [
+      CanActivateGuard
+    ],
+    resolve: {
+      load: LoadingResolver
+    },
     children: []
   },
   {
@@ -23,4 +32,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

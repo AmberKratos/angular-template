@@ -16,11 +16,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    let data:DataStorage[]=this.dataService.getData(this.constructor.name);
-    data.filter((s:DataStorage)=>{
-      return s.from=="LoginComponent";
-    }).forEach((value:DataStorage)=>{
-      console.log(value);
+    const data=this.dataService.getData(this.constructor.name);
+    data.forEach((result:DataStorage)=>{
+      if (result!=undefined){
+        console.log(result);
+      }
     })
   }
 
