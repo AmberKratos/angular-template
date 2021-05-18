@@ -4,7 +4,6 @@ import {LoginComponent} from './components/login/login.component';
 import {MainComponent} from './components/main/main.component';
 import {CanActivateGuard} from './guards/canActivate/can-activate.guard';
 import {LoadingResolver} from './resolvers/loadingResolver/loading.resolver';
-import {CanLoadGuard} from './guards/canLoad/can-load.guard';
 
 const routes: Routes = [
   {
