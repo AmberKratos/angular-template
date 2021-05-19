@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import {DataService} from '../../services/dataService/data.service';
 import {DataStorage} from '../../classes/dataStorage/data-storage';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-main',
@@ -10,9 +11,12 @@ import {DataStorage} from '../../classes/dataStorage/data-storage';
 export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private dataService:DataService;
+  private activatedRoute:ActivatedRoute;
 
-  constructor(dataService:DataService) {
+  constructor(dataService:DataService,
+              activatedRoute:ActivatedRoute) {
     this.dataService=dataService;
+    this.activatedRoute=activatedRoute;
   }
 
   ngOnInit(): void {
@@ -25,7 +29,10 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-
+    //获取resolver传送过来的数据
+    this.activatedRoute.data.subscribe((data)=>{
+      console.log(data)
+    })
   }
 
   ngOnDestroy(): void {

@@ -19,11 +19,17 @@ const routes: Routes = [
     resolve: {
       load: LoadingResolver
     },
-    children: []
+    children: [
+
+    ]
   },
   {
     path: '',
     component: LoginComponent
+  },
+  {
+    path:'**',
+    redirectTo:'login'
   }
 ];
 

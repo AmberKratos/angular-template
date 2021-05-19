@@ -20,8 +20,8 @@ export class LoadingResolver implements Resolve<boolean> {
           state: RouterStateSnapshot
   ): Observable<any> | Promise<any> | any {
 
-    console.log(123213123123132)
-    return of(true);
+    //数据返回给配置了本resolver的页面
+    return of("123123123");
 
   }
 }
