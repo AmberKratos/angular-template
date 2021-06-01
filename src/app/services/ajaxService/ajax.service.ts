@@ -17,12 +17,15 @@ export class AjaxService {
   /**
    * 封装了get请求
    * @param url    请求的地址
+   * @param data   请求数据
    * @param responseCallback   返回值回调函数
    * @param isWithCredentials   是否携带认证信息
    */
   public ajaxGet = (url: string,
+                    data: any,
                     responseCallback: Function,
                     isWithCredentials?: boolean): void => {
+    url=this.urlHandler(url,data);
     this.ajax.get<any>(url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'  //请求数据格式
@@ -39,16 +42,19 @@ export class AjaxService {
   /**
    * 封装了get请求并处理错误和请求完成后的功能
    * @param url   请求地址
+   * @param data   请求数据
    * @param responseCallback   返回值回调函数
    * @param errorCallback   错误信息回调函数
    * @param completeCallback   请求完成回调函数
    * @param isWithCredentials   是否携带认证信息
    */
   public ajaxGetAll = (url: string,
+                       data:any,
                        responseCallback: Function,
                        errorCallback: Function,
                        completeCallback: Function,
                        isWithCredentials?: boolean): void => {
+    url=this.urlHandler(url,data);
     this.ajax.get<any>(url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'  //请求数据格式
@@ -237,6 +243,32 @@ export class AjaxService {
       completeCallback();
     });
   };
+
+  /**
+   * 处理get请求地址的拼接
+   * @param url   请求地址
+   * @param data   请求数据
+   */
+  private urlHandler=(url:string,data:any):string=>{
+    url += '?';
+    for (let dataKey in data) {
+      if (data.hasOwnProperty(dataKey)) {
+        if (data[dataKey] == undefined || data[dataKey] == null) {
+          data[dataKey] = '';
+        }
+        if (data[dataKey] != '') {
+          url += dataKey + '=' + data[dataKey] + '&';
+        }
+      }
+    }
+    if (url.lastIndexOf('&') != -1) {
+      url = url.substr(0, url.lastIndexOf('&'));
+    }else{
+      url=url.substr(0,url.lastIndexOf("?"))
+    }
+    console.log(url);
+    return url;
+  }
 
   /**
    * 统一错误处理

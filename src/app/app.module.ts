@@ -5,6 +5,7 @@ import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 /**
  * 组件部分
@@ -31,6 +32,7 @@ import {Subject} from 'rxjs';
 import { MainComponent } from './components/main/main.component';
 
 
+
 @NgModule({
   declarations: [       //组件注册
     AppComponent,
@@ -38,11 +40,12 @@ import { MainComponent } from './components/main/main.component';
     LoginComponent,
     MainComponent
   ],
-  imports: [           //功能模块注册
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule
-  ],
+    imports: [           //功能模块注册
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule
+    ],
   providers: [         //服务注册
     AjaxService,
     DataService,
