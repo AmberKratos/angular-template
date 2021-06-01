@@ -29,10 +29,10 @@ export class UnifiedInterceptor implements HttpInterceptor {
       })).pipe(map((response: any) => {   //统一修改响应返回值
         if (response.type == 0) {
           //todo:向服务器发送请求的时候，type=0，可以在这里完成需要在请求时完成的事情
-          //console.log()
+          // console.log(response)
         } else if (response.type == 4) {
           //todo:接收服务器返回的结果时，type=4，可以在这里修改返回值结果
-          //console.log()
+          // console.log(response)
         }
         return response;
       }));

@@ -25,7 +25,7 @@ export class AjaxService {
                     data: any,
                     responseCallback: Function,
                     isWithCredentials?: boolean): void => {
-    url=this.urlHandler(url,data);
+    url = this.urlHandler(url, data);
     this.ajax.get<any>(url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'  //请求数据格式
@@ -49,12 +49,12 @@ export class AjaxService {
    * @param isWithCredentials   是否携带认证信息
    */
   public ajaxGetAll = (url: string,
-                       data:any,
+                       data: any,
                        responseCallback: Function,
                        errorCallback: Function,
                        completeCallback: Function,
                        isWithCredentials?: boolean): void => {
-    url=this.urlHandler(url,data);
+    url = this.urlHandler(url, data);
     this.ajax.get<any>(url, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'  //请求数据格式
@@ -249,26 +249,23 @@ export class AjaxService {
    * @param url   请求地址
    * @param data   请求数据
    */
-  private urlHandler=(url:string,data:any):string=>{
+  private urlHandler = (url: string, data: any): string => {
     url += '?';
     for (let dataKey in data) {
       if (data.hasOwnProperty(dataKey)) {
-        if (data[dataKey] == undefined || data[dataKey] == null) {
-          data[dataKey] = '';
-        }
-        if (data[dataKey] != '') {
+        if (data[dataKey] != undefined && data[dataKey] != null && data[dataKey] != '') {
           url += dataKey + '=' + data[dataKey] + '&';
         }
       }
     }
     if (url.lastIndexOf('&') != -1) {
       url = url.substr(0, url.lastIndexOf('&'));
-    }else{
-      url=url.substr(0,url.lastIndexOf("?"))
+    } else {
+      url = url.substr(0, url.lastIndexOf('?'));
     }
     console.log(url);
     return url;
-  }
+  };
 
   /**
    * 统一错误处理
